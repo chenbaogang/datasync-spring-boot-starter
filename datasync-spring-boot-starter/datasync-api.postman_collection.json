@@ -1,0 +1,174 @@
+{
+  "info": {
+    "_postman_id": "datasync-api-collection",
+    "name": "DataSync API",
+    "description": "数据同步服务 API 接口集合\n基础路径: ${baseUrl}/datasync",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "任务管理",
+      "item": [
+        {
+          "name": "分页查询任务列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/datasync/page?name=&currentPage=1&pageSize=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["datasync", "page"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "",
+                  "description": "任务名称（可选）"
+                },
+                {
+                  "key": "currentPage",
+                  "value": "1",
+                  "description": "当前页码"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "每页大小"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "根据ID查询任务",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/datasync/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["datasync", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "task-001",
+                  "description": "任务ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "保存新任务",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"task-001\",\n  \"code\": \"SYNC001\",\n  \"name\": \"测试同步任务\",\n  \"sourceCode\": \"source-db\",\n  \"targetCode\": \"target-db\",\n  \"sourceSql\": \"SELECT * FROM users\",\n  \"targetConf\": \"{\\\"table\\\":\\\"users\\\",\\\"mapping\\\":{}}\",\n  \"isEnable\": \"1\",\n  \"syncType\": 1,\n  \"cronExp\": \"0 0/30 * * * ?\",\n  \"appKey\": \"\",\n  \"appSecret\": \"\",\n  \"syncUrl\": \"\",\n  \"uid\": \"\",\n  \"afterPolicy\": \"\",\n  \"beforePolicy\": \"\",\n  \"bodyParams\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/datasync/save",
+              "host": ["{{baseUrl}}"],
+              "path": ["datasync", "save"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "更新任务",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"task-001\",\n  \"code\": \"SYNC001\",\n  \"name\": \"更新后的任务名称\",\n  \"sourceCode\": \"source-db\",\n  \"targetCode\": \"target-db\",\n  \"sourceSql\": \"SELECT * FROM users WHERE status = 1\",\n  \"targetConf\": \"{\\\"table\\\":\\\"users\\\",\\\"mapping\\\":{}}\",\n  \"isEnable\": \"1\",\n  \"syncType\": 1,\n  \"cronExp\": \"0 0/30 * * * ?\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/datasync/updateById",
+              "host": ["{{baseUrl}}"],
+              "path": ["datasync", "updateById"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "根据ID删除任务",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/datasync/deleteById/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["datasync", "deleteById", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "task-001",
+                  "description": "任务ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "同步操作",
+      "item": [
+        {
+          "name": "手动触发数据同步",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/datasync/dataSync/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["datasync", "dataSync", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "task-001",
+                  "description": "任务ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "手动执行任务扫描",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/datasync/scan",
+              "host": ["{{baseUrl}}"],
+              "path": ["datasync", "scan"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

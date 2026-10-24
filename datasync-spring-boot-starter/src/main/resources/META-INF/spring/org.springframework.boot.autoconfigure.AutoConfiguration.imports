@@ -1,0 +1,2 @@
+com.ywzt.datasync.config.DatasyncAutoConfiguration
+com.ywzt.datasync.config.DatasyncApiAutoConfiguration

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ywzt.datasync.config.DatasyncAutoConfiguration,\
+com.ywzt.datasync.config.DatasyncApiAutoConfiguration
